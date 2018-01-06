@@ -53,7 +53,7 @@ If you see that packets are transmitted between the hosts you can move on to the
 1. Move to the `FlaseClase/simulation_multiplexed` directory, and run the script `run_demo.sh` (add execution permission if needed).
 2. Check if the system topology is connected using `h1 ping h2`. <br /> 
 If you see that packets are transmitted between the hosts you can move on to the next step
-3. Inside the mininet command prompt open a terminal for hosts 1 and 2 using : `xterm h1 h2`
+3. Inside the mininet command prompt open a terminal for hosts 1 and 2 using : `xterm h1 h2`.
 4. Run on host 2: `iperf -su -i -1`.
 5. On a different terminal run from FlaseClase directory `run_multiplexed_marking.sh`. <br />
 6. Run on host 1: `iperf -c 10.0.0.2 -u -b 2m -t 60`. <br />
@@ -67,8 +67,8 @@ In the simulation directories change in the topo.py file on line 62 you may noti
 
 ## Changing Cycle length
 In this current configuration both algorithms perform the loss and delay check about every 8 seconds. Thus, delay above 8 seconds can not be measured. In order to increase the cycle of the algorythm in each of the simulation directories we need to make changes in both commands1.txt and commands4.txt i.e. the tables of the sending and receiving switches.
-Instructions how to change the cycle from 8 to 16 seconds:
-	 - In each of those files for every line with the `&&&` P4 operator we have on the right to the `&&&` a binary sequence. we need to shift the '1' on it to the left.
+Instructions how to change the cycle from 8 to 16 seconds: <br /> 
+	 - In each of those files for every line with the `&&&` P4 operator we have on the right to the `&&&` a binary sequence. we need to shift the '1' on it to the left.  <br /> 
 	 - In each of those files for every line with the `&&&` P4 operator we have on the left a decimal number (2^35 or zero). we need to double it. <br /> 
 Example: <br /> 
 This: `34359738368&&&0b0000000000000000000000000000100000000000000000000000000000000000` <br /> 
