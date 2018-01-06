@@ -54,8 +54,14 @@ If you see that packets are transmitted between the hosts you can move on to the
 6. Run on host 1: `iperf -c 10.0.0.2 -u -b 2m -t 60`. <br />
 7. When you are done, you must exit the Mininet environment using `exit` in the mininet promt (**See note**)
 
-## Running the Double Marking algorithm
+## Running the Multiplexed Marking algorithm
 Copy with small modification when double is prefect.
+
+## Changing mininet loss and delay configurations
+In the simulation directories change in the topo.py file on line 62 you may notice the current configuration (i.e. loss = 5 and delay = 2 seconds). For chanches take effect one must:
+	 - Close the mininet by typing in mininet shell `exit`.
+	 - Clean mininet `sudo mn -c`.
+	 - Restart the mininet as in step 1 of Running the Double/Multiplexed Marking algorithm
 
 ## Changing Cycle length
 In this current configuration both algorithms perform the loss and delay check about every 8 seconds. Thus, delay above 8 seconds can not be measured. In order to increase the cycle of the algorythm in each of the simulation directories we need to make changes in both commands1.txt and commands4.txt i.e. the tables of the sending and receiving switches.
