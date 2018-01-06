@@ -1,6 +1,6 @@
 # P4 Alternate Marking Algorithm
 In this repository you may find an implementation of the algorithms Double Marking and Multiple Marking with p4-switches and a C program.
-It is base on time_stamping_simulation_P4 Project: https://github.com/MichaelBun/time_stamping_simulation_P4
+It is based on time_stamping_simulation_P4 Project: https://github.com/MichaelBun/time_stamping_simulation_P4
 
 ## Some Background First
 This project ...
@@ -31,8 +31,8 @@ The topology we use in our simulation network is as follows : ![Topology](https:
 	 -  Use `make` to build the code
 6.	From the parent directory containing `bmv2` and `p4c-bmv2`. <br /> 
 	Run: ```git clone https://github.com/AlternateMarkingP4/FlaseClase.git```
-   - In directory FlaseClase/simulation_double run `chmod 777 re*`
-   - In directory FlaseClase/simulation_multiplexed run `chmod 777 re*`
+   	 - In directory FlaseClase/simulation_double run `chmod 777 re*`
+   	 - In directory FlaseClase/simulation_multiplexed run `chmod 777 re*`
 7.  Install Mininet (skip this part if you already have the newest Mininet version installed). <br />
 	From the desired location, run by order:
 	 - `git clone git://github.com/mininet/mininet`
