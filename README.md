@@ -50,7 +50,14 @@ If you see that packets are transmitted between the hosts you can move on to the
 7. When you are done, you must exit the Mininet environment using `exit` in the mininet promt (**See note**)
 
 ## Running the Multiplexed Marking algorithm
-Copy with small modification when double is prefect.
+1. Move to the `FlaseClase/simulation_multiplexed` directory, and run the script `run_demo.sh` (add execution permission if needed).
+2. Check if the system topology is connected using `h1 ping h2`. <br /> 
+If you see that packets are transmitted between the hosts you can move on to the next step
+3. Inside the mininet command prompt open a terminal for hosts 1 and 2 using : `xterm h1 h2`
+4. Run on host 2: `iperf -su -i -1`.
+5. On a different terminal run from FlaseClase directory `run_multiplexed_marking.sh`. <br />
+6. Run on host 1: `iperf -c 10.0.0.2 -u -b 2m -t 60`. <br />
+7. When you are done, you must exit the Mininet environment using `exit` in the mininet promt (**See note**)
 
 ## Changing mininet loss and delay configurations
 In the simulation directories change in the topo.py file on line 62 you may notice the current configuration (i.e. loss = 5 and delay = 2 seconds). For chanches take effect one must:
