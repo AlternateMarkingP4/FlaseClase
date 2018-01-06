@@ -58,9 +58,9 @@ In this current configuration both algorithms perform the loss and delay check a
 Instructions how to change the cycle from 8 to 16 seconds:
 	 - In each of those files for every line with the `&&&` P4 operator we have on the right to the `&&&` a binary sequence. we need to shift the '1' on it to the left.
 	 - In each of those files for every line with the `&&&` P4 operator we have on the left a decimal number (2^35 or zero). we need to double it.
-Example:
-This: `34359738368&&&0b0000000000000000000000000000100000000000000000000000000000000000`
-To:   `68719476736&&&0b0000000000000000000000000001000000000000000000000000000000000000`
+Example: <br /> 
+This: `34359738368&&&0b0000000000000000000000000000100000000000000000000000000000000000` <br /> 
+To:   `68719476736&&&0b0000000000000000000000000001000000000000000000000000000000000000` <br /> 
 
 #### Note
 If Mininet was closed improperly, please use `sudo mn -c` before doing anything else to clean up any residue left by the Mininet software.
