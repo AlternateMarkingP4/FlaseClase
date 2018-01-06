@@ -1,6 +1,6 @@
 # P4 Alternate Marking Algorithm
 In this repository you may find an implementation of the algorithms Double Marking and Multiple Marking with p4-switches and a C program.
-It is based on time_stamping_simulation_P4 Project: https://github.com/MichaelBun/time_stamping_simulation_P4
+It is based on the Project: https://github.com/MichaelBun/time_stamping_simulation_P4
 
 ## Some Background First
 This project ...
