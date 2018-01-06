@@ -32,11 +32,7 @@ The topology we use in our simulation network is as follows : ![Topology](https:
 6.	From the parent directory containing `bmv2` and `p4c-bmv2`. <br /> 
 	Run: ```git clone https://github.com/AlternateMarkingP4/FlaseClase.git```
 	and grant some permissions:
-	 - In directory FlaseClase/simulation_double/self_switch/ run `chmod 777 self_switch2`
-   	 - In directory FlaseClase/simulation_double run `chmod 777 re*`
-	 - In directory FlaseClase/simulation_multiplexed/self_switch/ run `chmod 777 self_switch2`
-   	 - In directory FlaseClase/simulation_multiplexed run `chmod 777 re*`
-	 - In directory FlaseClase run `chmod 777 run*`
+	 - In directory FlaseClase run `permissions.sh` (add execution permission if needed).
 7.  Install Mininet (skip this part if you already have the newest Mininet version installed). <br />
 	From the desired location, run by order:
 	 - `git clone git://github.com/mininet/mininet`
