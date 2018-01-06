@@ -1,0 +1,2541 @@
+{
+    "__meta__": {
+        "version": [
+            2,
+            5
+        ],
+        "compiler": "https://github.com/p4lang/p4c-bm"
+    },
+    "header_types": [
+        {
+            "name": "standard_metadata_t",
+            "id": 0,
+            "fields": [
+                [
+                    "ingress_port",
+                    9
+                ],
+                [
+                    "packet_length",
+                    32
+                ],
+                [
+                    "egress_spec",
+                    9
+                ],
+                [
+                    "egress_port",
+                    9
+                ],
+                [
+                    "egress_instance",
+                    32
+                ],
+                [
+                    "instance_type",
+                    32
+                ],
+                [
+                    "clone_spec",
+                    32
+                ],
+                [
+                    "_padding",
+                    5
+                ]
+            ],
+            "length_exp": null,
+            "max_length": null
+        },
+        {
+            "name": "ethernet_t",
+            "id": 1,
+            "fields": [
+                [
+                    "dstAddr",
+                    48
+                ],
+                [
+                    "srcAddr",
+                    48
+                ],
+                [
+                    "etherType",
+                    16
+                ]
+            ],
+            "length_exp": null,
+            "max_length": null
+        },
+        {
+            "name": "ipv4_t",
+            "id": 2,
+            "fields": [
+                [
+                    "version",
+                    4
+                ],
+                [
+                    "ihl",
+                    4
+                ],
+                [
+                    "diffserv",
+                    8
+                ],
+                [
+                    "totalLen",
+                    16
+                ],
+                [
+                    "identification",
+                    16
+                ],
+                [
+                    "flag_a",
+                    1
+                ],
+                [
+                    "flag_b",
+                    1
+                ],
+                [
+                    "flag_c",
+                    1
+                ],
+                [
+                    "fragOffset",
+                    13
+                ],
+                [
+                    "ttl",
+                    8
+                ],
+                [
+                    "protocol",
+                    8
+                ],
+                [
+                    "hdrChecksum",
+                    16
+                ],
+                [
+                    "srcAddr",
+                    32
+                ],
+                [
+                    "dstAddr",
+                    32
+                ]
+            ],
+            "length_exp": null,
+            "max_length": null
+        },
+        {
+            "name": "tcp_t",
+            "id": 3,
+            "fields": [
+                [
+                    "srcPort",
+                    16
+                ],
+                [
+                    "dstPort",
+                    16
+                ],
+                [
+                    "seqNo",
+                    32
+                ],
+                [
+                    "ackNo",
+                    32
+                ],
+                [
+                    "dataOffset",
+                    4
+                ],
+                [
+                    "res",
+                    3
+                ],
+                [
+                    "ecn",
+                    3
+                ],
+                [
+                    "ctrl",
+                    6
+                ],
+                [
+                    "window",
+                    16
+                ],
+                [
+                    "checksum",
+                    16
+                ],
+                [
+                    "urgentPtr",
+                    16
+                ]
+            ],
+            "length_exp": null,
+            "max_length": null
+        },
+        {
+            "name": "ingress_intrinsic_metadata_t",
+            "id": 4,
+            "fields": [
+                [
+                    "ingress_global_timestamp",
+                    48
+                ],
+                [
+                    "enq_tstamp",
+                    32
+                ],
+                [
+                    "lf_field_list",
+                    32
+                ],
+                [
+                    "mcast_grp",
+                    16
+                ],
+                [
+                    "egress_rid",
+                    16
+                ],
+                [
+                    "time_of_day",
+                    64
+                ],
+                [
+                    "prev_color_1",
+                    1
+                ],
+                [
+                    "prev_color_2",
+                    1
+                ],
+                [
+                    "prev_color_3",
+                    1
+                ],
+                [
+                    "prev_color_4",
+                    1
+                ],
+                [
+                    "prev_color_5",
+                    1
+                ],
+                [
+                    "prev_color_6",
+                    1
+                ],
+                [
+                    "prev_color_7",
+                    1
+                ],
+                [
+                    "prev_color_8",
+                    1
+                ],
+                [
+                    "prev_color_9",
+                    1
+                ],
+                [
+                    "prev_color_10",
+                    1
+                ],
+                [
+                    "prev_color_11",
+                    1
+                ],
+                [
+                    "prev_color_12",
+                    1
+                ],
+                [
+                    "prev_color_13",
+                    1
+                ],
+                [
+                    "prev_color_14",
+                    1
+                ],
+                [
+                    "prev_color_15",
+                    1
+                ],
+                [
+                    "_padding",
+                    1
+                ]
+            ],
+            "length_exp": null,
+            "max_length": null
+        }
+    ],
+    "headers": [
+        {
+            "name": "standard_metadata",
+            "id": 0,
+            "header_type": "standard_metadata_t",
+            "metadata": true
+        },
+        {
+            "name": "ethernet",
+            "id": 1,
+            "header_type": "ethernet_t",
+            "metadata": false
+        },
+        {
+            "name": "ipv4",
+            "id": 2,
+            "header_type": "ipv4_t",
+            "metadata": false
+        },
+        {
+            "name": "tcp",
+            "id": 3,
+            "header_type": "tcp_t",
+            "metadata": false
+        },
+        {
+            "name": "intrinsic_metadata",
+            "id": 4,
+            "header_type": "ingress_intrinsic_metadata_t",
+            "metadata": true
+        }
+    ],
+    "header_stacks": [],
+    "parsers": [
+        {
+            "name": "parser",
+            "id": 0,
+            "init_state": "start",
+            "parse_states": [
+                {
+                    "name": "start",
+                    "id": 0,
+                    "parser_ops": [],
+                    "transition_key": [],
+                    "transitions": [
+                        {
+                            "type": "default",
+                            "value": null,
+                            "mask": null,
+                            "next_state": "parse_ethernet"
+                        }
+                    ]
+                },
+                {
+                    "name": "parse_ethernet",
+                    "id": 1,
+                    "parser_ops": [
+                        {
+                            "op": "extract",
+                            "parameters": [
+                                {
+                                    "type": "regular",
+                                    "value": "ethernet"
+                                }
+                            ]
+                        }
+                    ],
+                    "transition_key": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ethernet",
+                                "etherType"
+                            ]
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "type": "hexstr",
+                            "value": "0x0800",
+                            "mask": null,
+                            "next_state": "parse_ipv4"
+                        },
+                        {
+                            "type": "default",
+                            "value": null,
+                            "mask": null,
+                            "next_state": null
+                        }
+                    ]
+                },
+                {
+                    "name": "parse_ipv4",
+                    "id": 2,
+                    "parser_ops": [
+                        {
+                            "op": "extract",
+                            "parameters": [
+                                {
+                                    "type": "regular",
+                                    "value": "ipv4"
+                                }
+                            ]
+                        }
+                    ],
+                    "transition_key": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ipv4",
+                                "protocol"
+                            ]
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "type": "hexstr",
+                            "value": "0x06",
+                            "mask": null,
+                            "next_state": "parse_tcp"
+                        },
+                        {
+                            "type": "default",
+                            "value": null,
+                            "mask": null,
+                            "next_state": null
+                        }
+                    ]
+                },
+                {
+                    "name": "parse_tcp",
+                    "id": 3,
+                    "parser_ops": [
+                        {
+                            "op": "extract",
+                            "parameters": [
+                                {
+                                    "type": "regular",
+                                    "value": "tcp"
+                                }
+                            ]
+                        }
+                    ],
+                    "transition_key": [],
+                    "transitions": [
+                        {
+                            "type": "default",
+                            "value": null,
+                            "mask": null,
+                            "next_state": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "parse_vsets": [],
+    "deparsers": [
+        {
+            "name": "deparser",
+            "id": 0,
+            "order": [
+                "ethernet",
+                "ipv4",
+                "tcp"
+            ]
+        }
+    ],
+    "meter_arrays": [],
+    "actions": [
+        {
+            "name": "_modify_ts_send",
+            "id": 0,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "ts_counter_send"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_sent_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_modify_ts_recv",
+            "id": 1,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "ts_counter_recv"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_recv_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_drop",
+            "id": 2,
+            "runtime_data": [],
+            "primitives": [
+                {
+                    "op": "drop",
+                    "parameters": []
+                }
+            ]
+        },
+        {
+            "name": "_set_port",
+            "id": 3,
+            "runtime_data": [
+                {
+                    "name": "dst",
+                    "bitwidth": 9
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "standard_metadata",
+                                "egress_spec"
+                            ]
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_modify_flags",
+            "id": 4,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "sent_counter"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ipv4",
+                                "flag_a"
+                            ]
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_15"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_14"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_14"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_13"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_13"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_12"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_12"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_11"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_11"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_10"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_10"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_9"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_9"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_8"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_8"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_7"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_7"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_6"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_6"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_5"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_5"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_4"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_4"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_3"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_3"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_2"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_2"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_1"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_1"
+                            ]
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_15"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_15"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_14"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_14"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_13"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_13"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_12"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_12"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_11"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_11"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_10"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_10"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_9"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_9"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_8"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_8"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_7"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_7"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_6"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_6"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_5"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_5"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_4"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_4"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_3"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_3"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_2"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_1"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_1"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_read_flags",
+            "id": 5,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "recv_counter"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_15"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_14"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_14"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_13"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_13"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_12"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_12"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_11"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_11"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_10"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_10"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_9"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_9"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_8"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_8"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_7"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_7"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_6"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_6"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_5"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_5"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_4"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_4"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_3"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_3"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_2"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "register_read",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_2"
+                            ]
+                        },
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_1"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                },
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_1"
+                            ]
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_15"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_15"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_14"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_14"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_13"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_13"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_12"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_12"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_11"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_11"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_10"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_10"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_9"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_9"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_8"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_8"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_7"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_7"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_6"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_6"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_5"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_5"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_4"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_4"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_3"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_3"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_2"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "prev_color_reg_1"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "prev_color_1"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "pipelines": [
+        {
+            "name": "ingress",
+            "id": 0,
+            "init_table": "modify_flags",
+            "tables": [
+                {
+                    "name": "set_port",
+                    "id": 0,
+                    "match_type": "ternary",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "ternary",
+                            "target": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "standard_metadata",
+                                "ingress_port"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_set_port",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_set_port": null,
+                        "_drop": null
+                    },
+                    "base_default_next": null
+                },
+                {
+                    "name": "modify_flags",
+                    "id": 1,
+                    "match_type": "ternary",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "ternary",
+                            "target": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "ipv4",
+                                "dstAddr"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_modify_flags",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_modify_flags": "read_flags",
+                        "_drop": "read_flags"
+                    },
+                    "base_default_next": "read_flags"
+                },
+                {
+                    "name": "read_flags",
+                    "id": 2,
+                    "match_type": "exact",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "ipv4",
+                                "flag_a"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "ipv4",
+                                "srcAddr"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_read_flags",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_read_flags": "set_port",
+                        "_drop": "set_port"
+                    },
+                    "base_default_next": "set_port"
+                }
+            ],
+            "action_profiles": [],
+            "conditionals": []
+        },
+        {
+            "name": "egress",
+            "id": 1,
+            "init_table": "modify_ts_send",
+            "tables": [
+                {
+                    "name": "modify_ts_send",
+                    "id": 3,
+                    "match_type": "exact",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_1"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_2"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_3"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_4"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_5"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_11"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_12"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_13"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_14"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_15"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_modify_ts_send",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_modify_ts_send": "modify_ts_recv",
+                        "_drop": "modify_ts_recv"
+                    },
+                    "base_default_next": "modify_ts_recv"
+                },
+                {
+                    "name": "modify_ts_recv",
+                    "id": 4,
+                    "match_type": "exact",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_1"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_2"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_3"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_4"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_5"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_11"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_12"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_13"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_14"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "intrinsic_metadata",
+                                "prev_color_15"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_modify_ts_recv",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_modify_ts_recv": null,
+                        "_drop": null
+                    },
+                    "base_default_next": null
+                }
+            ],
+            "action_profiles": [],
+            "conditionals": []
+        }
+    ],
+    "calculations": [
+        {
+            "name": "ipv4_checksum",
+            "id": 0,
+            "input": [
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "version"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "ihl"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "diffserv"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "totalLen"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "identification"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "flag_a"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "flag_b"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "flag_c"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "fragOffset"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "ttl"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "protocol"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "srcAddr"
+                    ]
+                },
+                {
+                    "type": "field",
+                    "value": [
+                        "ipv4",
+                        "dstAddr"
+                    ]
+                }
+            ],
+            "algo": "csum16"
+        }
+    ],
+    "checksums": [
+        {
+            "name": "ipv4.hdrChecksum|ipv4_checksum",
+            "id": 0,
+            "target": [
+                "ipv4",
+                "hdrChecksum"
+            ],
+            "type": "generic",
+            "calculation": "ipv4_checksum",
+            "if_cond": null
+        }
+    ],
+    "learn_lists": [],
+    "field_lists": [],
+    "counter_arrays": [
+        {
+            "name": "sent_counter",
+            "id": 0,
+            "is_direct": false,
+            "size": 2
+        },
+        {
+            "name": "recv_counter",
+            "id": 1,
+            "is_direct": false,
+            "size": 2
+        },
+        {
+            "name": "ts_counter_send",
+            "id": 2,
+            "is_direct": false,
+            "size": 2
+        },
+        {
+            "name": "ts_counter_recv",
+            "id": 3,
+            "is_direct": false,
+            "size": 2
+        }
+    ],
+    "register_arrays": [
+        {
+            "name": "prev_color_reg_1",
+            "id": 0,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_2",
+            "id": 1,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_3",
+            "id": 2,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_4",
+            "id": 3,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_5",
+            "id": 4,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_6",
+            "id": 5,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_7",
+            "id": 6,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_8",
+            "id": 7,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_9",
+            "id": 8,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_10",
+            "id": 9,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_11",
+            "id": 10,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_12",
+            "id": 11,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_13",
+            "id": 12,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_14",
+            "id": 13,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "prev_color_reg_15",
+            "id": 14,
+            "bitwidth": 8,
+            "size": 1
+        },
+        {
+            "name": "ts_sent_reg",
+            "id": 15,
+            "bitwidth": 64,
+            "size": 2
+        },
+        {
+            "name": "ts_recv_reg",
+            "id": 16,
+            "bitwidth": 64,
+            "size": 2
+        }
+    ],
+    "force_arith": [
+        [
+            "standard_metadata",
+            "ingress_port"
+        ],
+        [
+            "standard_metadata",
+            "packet_length"
+        ],
+        [
+            "standard_metadata",
+            "egress_spec"
+        ],
+        [
+            "standard_metadata",
+            "egress_port"
+        ],
+        [
+            "standard_metadata",
+            "egress_instance"
+        ],
+        [
+            "standard_metadata",
+            "instance_type"
+        ],
+        [
+            "standard_metadata",
+            "clone_spec"
+        ],
+        [
+            "standard_metadata",
+            "_padding"
+        ],
+        [
+            "intrinsic_metadata",
+            "ingress_global_timestamp"
+        ],
+        [
+            "intrinsic_metadata",
+            "enq_tstamp"
+        ],
+        [
+            "intrinsic_metadata",
+            "lf_field_list"
+        ],
+        [
+            "intrinsic_metadata",
+            "mcast_grp"
+        ],
+        [
+            "intrinsic_metadata",
+            "egress_rid"
+        ],
+        [
+            "intrinsic_metadata",
+            "time_of_day"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_1"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_2"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_3"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_4"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_5"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_6"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_7"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_8"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_9"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_10"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_11"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_12"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_13"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_14"
+        ],
+        [
+            "intrinsic_metadata",
+            "prev_color_15"
+        ],
+        [
+            "intrinsic_metadata",
+            "_padding"
+        ]
+    ]
+}
