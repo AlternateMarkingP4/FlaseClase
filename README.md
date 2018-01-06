@@ -68,11 +68,13 @@ In the simulation directories change in the topo.py file on line 62 you may noti
 ## Changing Cycle length
 In this current configuration both algorithms perform the loss and delay check about every 8 seconds. Thus, delay above 8 seconds can not be measured. In order to increase the cycle of the algorythm in each of the simulation directories we need to make changes in both commands1.txt and commands4.txt i.e. the tables of the sending and receiving switches.
 Instructions how to change the cycle from 8 to 16 seconds: <br /> 
-	 - In each of those files for every line with the `&&&` P4 operator we have on the right to the `&&&` a binary sequence. we need to shift the '1' on it to the left.  <br /> 
-	 - In each of those files for every line with the `&&&` P4 operator we have on the left a decimal number (2^35 or zero). we need to double it. <br /> 
+	 - In each of those files for every line with the `&&&` P4 operator we have on the right to the `&&&` a binary sequence.
+	 we need to shift the '1' on it to the left.  <br /> 
+	 - In each of those files for every line with the `&&&` P4 operator we have on the left a decimal number (2^35 or zero).
+	 we need to double it. <br /> 
 Example: <br /> 
-This: `34359738368&&&0b0000000000000000000000000000100000000000000000000000000000000000` <br /> 
-To:   `68719476736&&&0b0000000000000000000000000001000000000000000000000000000000000000` <br /> 
+This --> `34359738368&&&0b0000000000000000000000000000100000000000000000000000000000000000` <br /> 
+To ----> `68719476736&&&0b0000000000000000000000000001000000000000000000000000000000000000` <br /> 
 
 ### Note
 If Mininet was closed improperly, please use `sudo mn -c` before doing anything else to clean up any residue left by the Mininet software.
