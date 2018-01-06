@@ -104,12 +104,13 @@ int main(){
   	       printf("Sent '1' was of %u datagrams.\n", counters[2]-base[2]);
   	       printf("Received '1' was of %u datagrams.\n", counters[3]-base[3]); }
 	if(counters[2] != 0){
-		printf("Cycle packet loss: %lf%%\n",(( (double)counters[2]-
+		double delay = (( (double)counters[2]-
     						      (double)base[2]-
                                 	              (double)counters[3]+
 						      (double)base[3] ) /
 					  	    ( (double)counters[2]-
-						      (double)base[2] )) * 100.0);
+						      (double)base[2] )) * 100.0;
+		if (0 < delay){printf("Cycle packet loss: %lf%%\n", delay);}
 	}
         base[2] = counters[2];
         base[3] = counters[3];
@@ -134,16 +135,16 @@ int main(){
   	       printf("Sent '0' was of %u datagrams.\n", counters[0]-base[0]);
 	       printf("Received '0' was of %u datagrams.\n", counters[1]-base[1]); }
 	if(counters[0] != 0){
-		printf("Cycle packet loss: %lf%%\n",(( (double)counters[0]-
+		double delay = (( (double)counters[0]-
     						      (double)base[0]-
                                 	              (double)counters[1]+
 						      (double)base[1] ) /
 					  	    ( (double)counters[0]-
-						      (double)base[0] )) * 100.0);
+						      (double)base[0] )) * 100.0;
+		if (0 < delay){printf("Cycle packet loss: %lf%%\n", delay);}
 	}
         base[0] = counters[0];
         base[1] = counters[1];
-
 	}
 	free(registers);
 }
