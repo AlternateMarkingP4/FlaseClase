@@ -62,7 +62,7 @@ Example: <br />
 This: `34359738368&&&0b0000000000000000000000000000100000000000000000000000000000000000` <br /> 
 To:   `68719476736&&&0b0000000000000000000000000001000000000000000000000000000000000000` <br /> 
 
-#### Note
+### Note
 If Mininet was closed improperly, please use `sudo mn -c` before doing anything else to clean up any residue left by the Mininet software.
 
 ## Credits
