@@ -51,9 +51,9 @@ If you see that packets are transmitted between the hosts you can move on to the
 7. When you are done, you must exit the Mininet environment using `exit` in the mininet promt (**See note**)
 
 ## Running the Double Marking algorithm
-Copy when double is prefect.
+Copy with small modification when double is prefect.
 
-### Changing Cycle length
+## Changing Cycle length
 In this current configuration both algorithms perform the loss and delay check about every 8 seconds. Thus, delay above 8 seconds can not be measured. In order to increase the cycle of the algorythm in each of the simulation directories we need to make changes in both commands1.txt and commands4.txt i.e. the tables of the sending and receiving switches.
 Instructions how to change the cycle from 8 to 16 seconds:
 	 - In each of those files for every line with the `&&&` P4 operator we have on the right to the `&&&` a binary sequence. we need to shift the '1' on it to the left.
