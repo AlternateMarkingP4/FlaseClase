@@ -1,0 +1,42 @@
+/*
+Copyright 2013-present Barefoot Networks, Inc. 
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+header_type ingress_intrinsic_metadata_t {
+    fields {
+        ingress_global_timestamp : 48; /*Taken Upon arrival*/
+	enq_tstamp : 32; 
+        lf_field_list : 32;
+        mcast_grp : 16;
+        egress_rid : 16;
+	time_of_day : 64;
+	prev_color_1 : 1;
+	prev_color_2 : 1;
+	prev_color_3 : 1;
+	prev_color_4 : 1;
+	prev_color_5 : 1;
+	prev_color_6 : 1;
+	prev_color_7 : 1;
+	prev_color_8 : 1;
+	prev_color_9 : 1;
+	prev_color_10 : 1;
+	prev_color_11 : 1;
+	prev_color_12 : 1;
+	prev_color_13 : 1;
+	prev_color_14 : 1;
+	prev_color_15 : 1;
+    }
+}
+
