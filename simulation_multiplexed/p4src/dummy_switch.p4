@@ -4,63 +4,7 @@
 
 metadata ingress_intrinsic_metadata_t intrinsic_metadata;
 
-register prev_color_reg_1 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_2 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_3 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_4 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_5 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_6 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_7 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_8 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_9 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_10 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_11 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_12 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_13 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_14 {
-    width: 8;
-    instance_count: 1;
-}
-register prev_color_reg_15 {
+register ts_flag {
     width: 8;
     instance_count: 1;
 }
@@ -119,76 +63,12 @@ action _modify_flags(val) {
     count(sent_counter,val);
     modify_field(ipv4.flag_a, val);
 
-    /* This take effect in the delay calculation sending (switch 1) part. */
-    register_read(intrinsic_metadata.prev_color_15, prev_color_reg_14, 0);
-    register_read(intrinsic_metadata.prev_color_14, prev_color_reg_13, 0);
-    register_read(intrinsic_metadata.prev_color_13, prev_color_reg_12, 0);
-    register_read(intrinsic_metadata.prev_color_12, prev_color_reg_11, 0);
-    register_read(intrinsic_metadata.prev_color_11, prev_color_reg_10, 0);
-    register_read(intrinsic_metadata.prev_color_10, prev_color_reg_9, 0);
-    register_read(intrinsic_metadata.prev_color_9, prev_color_reg_8, 0);
-    register_read(intrinsic_metadata.prev_color_8, prev_color_reg_7, 0);
-    register_read(intrinsic_metadata.prev_color_7, prev_color_reg_6, 0);
-    register_read(intrinsic_metadata.prev_color_6, prev_color_reg_5, 0);
-    register_read(intrinsic_metadata.prev_color_5, prev_color_reg_4, 0);
-    register_read(intrinsic_metadata.prev_color_4, prev_color_reg_3, 0);
-    register_read(intrinsic_metadata.prev_color_3, prev_color_reg_2, 0);
-    register_read(intrinsic_metadata.prev_color_2, prev_color_reg_1, 0);
-    modify_field(intrinsic_metadata.prev_color_1, val);
-
-    register_write(prev_color_reg_15, 0, intrinsic_metadata.prev_color_15);
-    register_write(prev_color_reg_14, 0, intrinsic_metadata.prev_color_14);
-    register_write(prev_color_reg_13, 0, intrinsic_metadata.prev_color_13);
-    register_write(prev_color_reg_12, 0, intrinsic_metadata.prev_color_12);
-    register_write(prev_color_reg_11, 0, intrinsic_metadata.prev_color_11);
-    register_write(prev_color_reg_10, 0, intrinsic_metadata.prev_color_10);
-    register_write(prev_color_reg_9, 0, intrinsic_metadata.prev_color_9);
-    register_write(prev_color_reg_8, 0, intrinsic_metadata.prev_color_8);
-    register_write(prev_color_reg_7, 0, intrinsic_metadata.prev_color_7);
-    register_write(prev_color_reg_6, 0, intrinsic_metadata.prev_color_6);
-    register_write(prev_color_reg_5, 0, intrinsic_metadata.prev_color_5);
-    register_write(prev_color_reg_4, 0, intrinsic_metadata.prev_color_4);
-    register_write(prev_color_reg_3, 0, intrinsic_metadata.prev_color_3);
-    register_write(prev_color_reg_2, 0, intrinsic_metadata.prev_color_2);
-    register_write(prev_color_reg_1, 0, intrinsic_metadata.prev_color_1);
 }
 
 /* Used only bby receiving side. Read the color bit (flag_a) from the ipv4
  * header and count. Increase counter accordingly and update history. */
 action _read_flags(val) {
     count(recv_counter,val);
-    /* This take effect in the delay calculation sending (switch 1) part. */
-    register_read(intrinsic_metadata.prev_color_15, prev_color_reg_14, 0);
-    register_read(intrinsic_metadata.prev_color_14, prev_color_reg_13, 0);
-    register_read(intrinsic_metadata.prev_color_13, prev_color_reg_12, 0);
-    register_read(intrinsic_metadata.prev_color_12, prev_color_reg_11, 0);
-    register_read(intrinsic_metadata.prev_color_11, prev_color_reg_10, 0);
-    register_read(intrinsic_metadata.prev_color_10, prev_color_reg_9, 0);
-    register_read(intrinsic_metadata.prev_color_9, prev_color_reg_8, 0);
-    register_read(intrinsic_metadata.prev_color_8, prev_color_reg_7, 0);
-    register_read(intrinsic_metadata.prev_color_7, prev_color_reg_6, 0);
-    register_read(intrinsic_metadata.prev_color_6, prev_color_reg_5, 0);
-    register_read(intrinsic_metadata.prev_color_5, prev_color_reg_4, 0);
-    register_read(intrinsic_metadata.prev_color_4, prev_color_reg_3, 0);
-    register_read(intrinsic_metadata.prev_color_3, prev_color_reg_2, 0);
-    register_read(intrinsic_metadata.prev_color_2, prev_color_reg_1, 0);
-    modify_field(intrinsic_metadata.prev_color_1, val);
-
-    register_write(prev_color_reg_15, 0, intrinsic_metadata.prev_color_15);
-    register_write(prev_color_reg_14, 0, intrinsic_metadata.prev_color_14);
-    register_write(prev_color_reg_13, 0, intrinsic_metadata.prev_color_13);
-    register_write(prev_color_reg_12, 0, intrinsic_metadata.prev_color_12);
-    register_write(prev_color_reg_11, 0, intrinsic_metadata.prev_color_11);
-    register_write(prev_color_reg_10, 0, intrinsic_metadata.prev_color_10);
-    register_write(prev_color_reg_9, 0, intrinsic_metadata.prev_color_9);
-    register_write(prev_color_reg_8, 0, intrinsic_metadata.prev_color_8);
-    register_write(prev_color_reg_7, 0, intrinsic_metadata.prev_color_7);
-    register_write(prev_color_reg_6, 0, intrinsic_metadata.prev_color_6);
-    register_write(prev_color_reg_5, 0, intrinsic_metadata.prev_color_5);
-    register_write(prev_color_reg_4, 0, intrinsic_metadata.prev_color_4);
-    register_write(prev_color_reg_3, 0, intrinsic_metadata.prev_color_3);
-    register_write(prev_color_reg_2, 0, intrinsic_metadata.prev_color_2);
-    register_write(prev_color_reg_1, 0, intrinsic_metadata.prev_color_1);
 }
 
 action _modify_ts_send(val) {

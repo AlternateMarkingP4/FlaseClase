@@ -451,98 +451,8 @@
     "meter_arrays": [],
     "actions": [
         {
-            "name": "_modify_ts_send",
-            "id": 0,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 32
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "ts_counter_send"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "ts_sent_reg"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "time_of_day"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "_modify_ts_recv",
-            "id": 1,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 32
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "ts_counter_recv"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "ts_recv_reg"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "time_of_day"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "name": "_drop",
-            "id": 2,
+            "id": 0,
             "runtime_data": [],
             "primitives": [
                 {
@@ -553,7 +463,7 @@
         },
         {
             "name": "_set_port",
-            "id": 3,
+            "id": 1,
             "runtime_data": [
                 {
                     "name": "dst",
@@ -581,7 +491,7 @@
         },
         {
             "name": "_modify_flags",
-            "id": 4,
+            "id": 2,
             "runtime_data": [
                 {
                     "name": "val",
@@ -1218,7 +1128,7 @@
         },
         {
             "name": "_read_flags",
-            "id": 5,
+            "id": 3,
             "runtime_data": [
                 {
                     "name": "val",
@@ -1831,6 +1741,96 @@
                             "value": [
                                 "intrinsic_metadata",
                                 "prev_color_1"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_modify_ts_send",
+            "id": 4,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "ts_counter_send"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_sent_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_modify_ts_recv",
+            "id": 5,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "ts_counter_recv"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_recv_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "time_of_day"
                             ]
                         }
                     ]

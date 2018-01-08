@@ -4,7 +4,5 @@ table_add set_port _set_port 34359738368&&&0b00000000000000000000000000001000000
 table_add set_port _set_port 0&&&0b0000000000000000000000000000100000000000000000000000000000000000 03 => 01 2
 table_add set_port _set_port 0&&&0 02 => 03 3
 table_add set_port _set_port 0&&&0 01 => 03 4
-table_add read_flags _read_flags 0 10.0.0.1 => 0
-table_add read_flags _read_flags 1 10.0.0.1 => 1
-table_add modify_ts_recv _modify_ts_recv 0 0 0 0 0 1 1 1 1 1 => 1
-table_add modify_ts_recv _modify_ts_recv 1 1 1 1 1 0 0 0 0 0 => 1
+table_add look_for_flag _look_for_flag 34359738368&&&0b0000000000000000000000000001110000000000000000000000000000000000 1 => 1
+table_add look_for_flag _look_for_flag 103079215104&&&0b0000000000000000000000000001110000000000000000000000000000000000 0 => 1
