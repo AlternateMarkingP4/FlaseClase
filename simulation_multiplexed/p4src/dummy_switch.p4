@@ -4,21 +4,27 @@
 
 metadata ingress_intrinsic_metadata_t intrinsic_metadata;
 
-register ts_flag {
+/* Used for the sender to know if he already updated the time stamp.
+ * Set to zero on the first qurter and set to 1 when on the first third
+ * qurter match - when updating the timestamp. */ 
+register ts_flag_reg {
     width: 8;
     instance_count: 1;
 }
 
+/* The two following registers are used to store the timestamp. The sender
+ * and receiver switches update it and the C wrapper measure it. */
 register ts_sent_reg {
     width: 64;
     instance_count: 2;
 }
-
 register ts_recv_reg {
     width: 64;
     instance_count: 2;
 }
 
+/* Added counter for the use of switch 1
+ * in order to count incoming packets. */
 counter sent_counter {
     type: packets;
     static: modify_flags;
@@ -34,14 +40,9 @@ counter recv_counter {
 }
 
 /* Timestamp counter added as dummy when syntax requires val usage. */
-counter ts_counter_send {
-    type: packets;
-    static: modify_ts_send;
-    instance_count: 2;
-}
 counter ts_counter_recv {
     type: packets;
-    static: modify_ts_recv;
+    static: look_for_flag;
     instance_count: 2;
 }
 
@@ -63,20 +64,30 @@ action _modify_flags(val) {
     count(sent_counter,val);
     modify_field(ipv4.flag_a, val);
 
+    /* Putting the history register in to metadata. */
+    register_read(intrinsic_metadata.ts_flag, ts_flag_reg, 0);
 }
 
-/* Used only bby receiving side. Read the color bit (flag_a) from the ipv4
+/* Change the bit i.e. signal the time stamp. */
+action _note_flag(val) {
+    modify_field(ipv4.flag_a, val);
+    register_write(ts_flag_reg, 0, 1);
+    register_write(ts_sent_reg, 0, intrinsic_metadata.time_of_day);
+}
+
+/* This action reset to zero the history ts register in every first qurter. */
+action _reset_ts_reg(val) {
+    register_write(ts_flag_reg, 0, val);
+}
+
+/* Used only by receiving side. Read the color bit (flag_a) from the ipv4
  * header and count. Increase counter accordingly and update history. */
 action _read_flags(val) {
     count(recv_counter,val);
 }
 
-action _modify_ts_send(val) {
-    count(ts_counter_send, val);
-    register_write(ts_sent_reg, 0, intrinsic_metadata.time_of_day);
-}
-
-action _modify_ts_recv(val) {
+/* Used by receiver. Update time Stamp. The count part is dummy to use val. */
+action _look_for_flag(val) {
     count(ts_counter_recv, val);
     register_write(ts_recv_reg, 0, intrinsic_metadata.time_of_day);
 }
@@ -113,6 +124,44 @@ table modify_flags {
     size: 256;
 }
 
+/* Used to reset the ts flag when needed. */
+table reset_ts_reg {
+    reads {
+        intrinsic_metadata.time_of_day : ternary;
+    }
+    actions {
+        _reset_ts_reg;
+        _drop;
+    }
+    size: 256;
+}
+
+/* Used by sender. Set the special time stamp single change in third qurter. */
+table note_flag {
+    reads {
+        intrinsic_metadata.time_of_day : ternary;
+        intrinsic_metadata.ts_flag : exact;
+    }
+    actions {
+	_note_flag;
+        _drop;
+    }
+    size: 256;
+}
+
+/* Used by receiver. Check if flag is different then flag color of cycle. */
+table look_for_flag {
+    reads {
+        intrinsic_metadata.time_of_day : ternary;
+	ipv4.flag_a : exact;
+    }
+    actions {
+	_look_for_flag;
+        _drop;
+    }
+    size: 256;
+}
+
 /* Added a table for switch 4 to use. */
 table read_flags {
     reads {	
@@ -126,58 +175,16 @@ table read_flags {
     size: 256;
 }
 
-table modify_ts_send {
-    reads {
-        intrinsic_metadata.prev_color_1 : exact;
-        intrinsic_metadata.prev_color_2 : exact;
-        intrinsic_metadata.prev_color_3 : exact;
-        intrinsic_metadata.prev_color_4 : exact;
-        intrinsic_metadata.prev_color_5 : exact;
-        intrinsic_metadata.prev_color_11 : exact;
-        intrinsic_metadata.prev_color_12 : exact;
-        intrinsic_metadata.prev_color_13 : exact;
-        intrinsic_metadata.prev_color_14 : exact;
-        intrinsic_metadata.prev_color_15 : exact;
-    }
-    actions {
-	_modify_ts_send;
-        _drop;
-    }
-    size: 256;
-}
-
-table modify_ts_recv {
-    reads {
-        intrinsic_metadata.prev_color_1 : exact;
-        intrinsic_metadata.prev_color_2 : exact;
-        intrinsic_metadata.prev_color_3 : exact;
-        intrinsic_metadata.prev_color_4 : exact;
-        intrinsic_metadata.prev_color_5 : exact;
-        intrinsic_metadata.prev_color_11 : exact;
-        intrinsic_metadata.prev_color_12 : exact;
-        intrinsic_metadata.prev_color_13 : exact;
-        intrinsic_metadata.prev_color_14 : exact;
-        intrinsic_metadata.prev_color_15 : exact;
-    }
-    actions {
-	_modify_ts_recv;
-        _drop;
-    }
-    size: 256;
-}
-
 /* -------------- CONTROLS ------------------------------------------------- */
 
 control ingress {
 	apply(modify_flags);
+	apply(reset_ts_reg);
 	apply(read_flags);
+	apply(look_for_flag);
 	apply(set_port);
 }
 
 control egress {
-	apply(modify_ts_send);
-	apply(modify_ts_recv);
+	apply(note_flag);
 }
-
-
-

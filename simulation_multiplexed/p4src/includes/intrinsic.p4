@@ -22,21 +22,6 @@ header_type ingress_intrinsic_metadata_t {
         mcast_grp : 16;
         egress_rid : 16;
 	time_of_day : 64;
-	prev_color_1 : 1;
-	prev_color_2 : 1;
-	prev_color_3 : 1;
-	prev_color_4 : 1;
-	prev_color_5 : 1;
-	prev_color_6 : 1;
-	prev_color_7 : 1;
-	prev_color_8 : 1;
-	prev_color_9 : 1;
-	prev_color_10 : 1;
-	prev_color_11 : 1;
-	prev_color_12 : 1;
-	prev_color_13 : 1;
-	prev_color_14 : 1;
-	prev_color_15 : 1;
+	ts_flag : 1;
     }
 }
-

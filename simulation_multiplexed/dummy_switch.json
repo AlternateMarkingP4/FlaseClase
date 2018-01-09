@@ -212,68 +212,12 @@
                     64
                 ],
                 [
-                    "prev_color_1",
-                    1
-                ],
-                [
-                    "prev_color_2",
-                    1
-                ],
-                [
-                    "prev_color_3",
-                    1
-                ],
-                [
-                    "prev_color_4",
-                    1
-                ],
-                [
-                    "prev_color_5",
-                    1
-                ],
-                [
-                    "prev_color_6",
-                    1
-                ],
-                [
-                    "prev_color_7",
-                    1
-                ],
-                [
-                    "prev_color_8",
-                    1
-                ],
-                [
-                    "prev_color_9",
-                    1
-                ],
-                [
-                    "prev_color_10",
-                    1
-                ],
-                [
-                    "prev_color_11",
-                    1
-                ],
-                [
-                    "prev_color_12",
-                    1
-                ],
-                [
-                    "prev_color_13",
-                    1
-                ],
-                [
-                    "prev_color_14",
-                    1
-                ],
-                [
-                    "prev_color_15",
+                    "ts_flag",
                     1
                 ],
                 [
                     "_padding",
-                    1
+                    7
                 ]
             ],
             "length_exp": null,
@@ -451,8 +395,107 @@
     "meter_arrays": [],
     "actions": [
         {
-            "name": "_drop",
+            "name": "_reset_ts_reg",
             "id": 0,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 8
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_flag_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_read_flags",
+            "id": 1,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "recv_counter"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_look_for_flag",
+            "id": 2,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "ts_counter_recv"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_recv_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_drop",
+            "id": 3,
             "runtime_data": [],
             "primitives": [
                 {
@@ -463,7 +506,7 @@
         },
         {
             "name": "_set_port",
-            "id": 1,
+            "id": 4,
             "runtime_data": [
                 {
                     "name": "dst",
@@ -491,7 +534,7 @@
         },
         {
             "name": "_modify_flags",
-            "id": 2,
+            "id": 5,
             "runtime_data": [
                 {
                     "name": "val",
@@ -535,908 +578,39 @@
                             "type": "field",
                             "value": [
                                 "intrinsic_metadata",
-                                "prev_color_15"
+                                "ts_flag"
                             ]
                         },
                         {
                             "type": "register_array",
-                            "value": "prev_color_reg_14"
+                            "value": "ts_flag_reg"
                         },
                         {
                             "type": "hexstr",
                             "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_14"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_13"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_13"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_12"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_12"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_11"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_11"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_10"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_10"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_9"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_9"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_8"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_8"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_7"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_7"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_6"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_6"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_5"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_5"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_4"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_4"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_3"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_3"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_2"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_2"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_1"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "modify_field",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_1"
-                            ]
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_15"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_15"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_14"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_14"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_13"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_13"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_12"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_12"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_11"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_11"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_10"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_10"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_9"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_9"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_8"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_8"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_7"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_7"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_6"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_6"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_5"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_5"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_4"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_4"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_3"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_3"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_2"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_2"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_1"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_1"
-                            ]
                         }
                     ]
                 }
             ]
         },
         {
-            "name": "_read_flags",
-            "id": 3,
+            "name": "_note_flag",
+            "id": 6,
             "runtime_data": [
                 {
                     "name": "val",
-                    "bitwidth": 32
+                    "bitwidth": 1
                 }
             ],
             "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "recv_counter"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_15"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_14"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_14"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_13"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_13"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_12"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_12"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_11"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_11"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_10"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_10"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_9"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_9"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_8"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_8"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_7"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_7"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_6"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_6"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_5"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_5"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_4"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_4"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_3"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_3"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_2"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
-                {
-                    "op": "register_read",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_2"
-                            ]
-                        },
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_1"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        }
-                    ]
-                },
                 {
                     "op": "modify_field",
                     "parameters": [
                         {
                             "type": "field",
                             "value": [
-                                "intrinsic_metadata",
-                                "prev_color_1"
+                                "ipv4",
+                                "flag_a"
                             ]
                         },
                         {
@@ -1450,323 +624,15 @@
                     "parameters": [
                         {
                             "type": "register_array",
-                            "value": "prev_color_reg_15"
+                            "value": "ts_flag_reg"
                         },
                         {
                             "type": "hexstr",
                             "value": "0x0"
                         },
                         {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_15"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_14"
-                        },
-                        {
                             "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_14"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_13"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_13"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_12"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_12"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_11"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_11"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_10"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_10"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_9"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_9"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_8"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_8"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_7"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_7"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_6"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_6"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_5"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_5"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_4"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_4"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_3"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_3"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_2"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_2"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "prev_color_reg_1"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "prev_color_1"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "_modify_ts_send",
-            "id": 4,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 32
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "ts_counter_send"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
+                            "value": "0x1"
                         }
                     ]
                 },
@@ -1776,51 +642,6 @@
                         {
                             "type": "register_array",
                             "value": "ts_sent_reg"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "time_of_day"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "_modify_ts_recv",
-            "id": 5,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 32
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "ts_counter_recv"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "ts_recv_reg"
                         },
                         {
                             "type": "hexstr",
@@ -1913,14 +734,80 @@
                         "_drop"
                     ],
                     "next_tables": {
-                        "_modify_flags": "read_flags",
+                        "_modify_flags": "reset_ts_reg",
+                        "_drop": "reset_ts_reg"
+                    },
+                    "base_default_next": "reset_ts_reg"
+                },
+                {
+                    "name": "reset_ts_reg",
+                    "id": 2,
+                    "match_type": "ternary",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "ternary",
+                            "target": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_reset_ts_reg",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_reset_ts_reg": "read_flags",
                         "_drop": "read_flags"
                     },
                     "base_default_next": "read_flags"
                 },
                 {
+                    "name": "look_for_flag",
+                    "id": 3,
+                    "match_type": "ternary",
+                    "type": "simple",
+                    "max_size": 256,
+                    "with_counters": false,
+                    "direct_meters": null,
+                    "support_timeout": false,
+                    "key": [
+                        {
+                            "match_type": "ternary",
+                            "target": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ],
+                            "mask": null
+                        },
+                        {
+                            "match_type": "exact",
+                            "target": [
+                                "ipv4",
+                                "flag_a"
+                            ],
+                            "mask": null
+                        }
+                    ],
+                    "actions": [
+                        "_look_for_flag",
+                        "_drop"
+                    ],
+                    "next_tables": {
+                        "_look_for_flag": "set_port",
+                        "_drop": "set_port"
+                    },
+                    "base_default_next": "set_port"
+                },
+                {
                     "name": "read_flags",
-                    "id": 2,
+                    "id": 4,
                     "match_type": "exact",
                     "type": "simple",
                     "max_size": 256,
@@ -1950,10 +837,10 @@
                         "_drop"
                     ],
                     "next_tables": {
-                        "_read_flags": "set_port",
-                        "_drop": "set_port"
+                        "_read_flags": "look_for_flag",
+                        "_drop": "look_for_flag"
                     },
-                    "base_default_next": "set_port"
+                    "base_default_next": "look_for_flag"
                 }
             ],
             "action_profiles": [],
@@ -1962,12 +849,12 @@
         {
             "name": "egress",
             "id": 1,
-            "init_table": "modify_ts_send",
+            "init_table": "note_flag",
             "tables": [
                 {
-                    "name": "modify_ts_send",
-                    "id": 3,
-                    "match_type": "exact",
+                    "name": "note_flag",
+                    "id": 5,
+                    "match_type": "ternary",
                     "type": "simple",
                     "max_size": 256,
                     "with_counters": false,
@@ -1975,10 +862,10 @@
                     "support_timeout": false,
                     "key": [
                         {
-                            "match_type": "exact",
+                            "match_type": "ternary",
                             "target": [
                                 "intrinsic_metadata",
-                                "prev_color_1"
+                                "time_of_day"
                             ],
                             "mask": null
                         },
@@ -1986,182 +873,17 @@
                             "match_type": "exact",
                             "target": [
                                 "intrinsic_metadata",
-                                "prev_color_2"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_3"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_4"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_5"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_11"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_12"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_13"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_14"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_15"
+                                "ts_flag"
                             ],
                             "mask": null
                         }
                     ],
                     "actions": [
-                        "_modify_ts_send",
+                        "_note_flag",
                         "_drop"
                     ],
                     "next_tables": {
-                        "_modify_ts_send": "modify_ts_recv",
-                        "_drop": "modify_ts_recv"
-                    },
-                    "base_default_next": "modify_ts_recv"
-                },
-                {
-                    "name": "modify_ts_recv",
-                    "id": 4,
-                    "match_type": "exact",
-                    "type": "simple",
-                    "max_size": 256,
-                    "with_counters": false,
-                    "direct_meters": null,
-                    "support_timeout": false,
-                    "key": [
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_1"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_2"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_3"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_4"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_5"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_11"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_12"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_13"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_14"
-                            ],
-                            "mask": null
-                        },
-                        {
-                            "match_type": "exact",
-                            "target": [
-                                "intrinsic_metadata",
-                                "prev_color_15"
-                            ],
-                            "mask": null
-                        }
-                    ],
-                    "actions": [
-                        "_modify_ts_recv",
-                        "_drop"
-                    ],
-                    "next_tables": {
-                        "_modify_ts_recv": null,
+                        "_note_flag": null,
                         "_drop": null
                     },
                     "base_default_next": null
@@ -2300,118 +1022,28 @@
             "size": 2
         },
         {
-            "name": "ts_counter_send",
-            "id": 2,
-            "is_direct": false,
-            "size": 2
-        },
-        {
             "name": "ts_counter_recv",
-            "id": 3,
+            "id": 2,
             "is_direct": false,
             "size": 2
         }
     ],
     "register_arrays": [
         {
-            "name": "prev_color_reg_1",
+            "name": "ts_flag_reg",
             "id": 0,
             "bitwidth": 8,
             "size": 1
         },
         {
-            "name": "prev_color_reg_2",
-            "id": 1,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_3",
-            "id": 2,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_4",
-            "id": 3,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_5",
-            "id": 4,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_6",
-            "id": 5,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_7",
-            "id": 6,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_8",
-            "id": 7,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_9",
-            "id": 8,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_10",
-            "id": 9,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_11",
-            "id": 10,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_12",
-            "id": 11,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_13",
-            "id": 12,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_14",
-            "id": 13,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
-            "name": "prev_color_reg_15",
-            "id": 14,
-            "bitwidth": 8,
-            "size": 1
-        },
-        {
             "name": "ts_sent_reg",
-            "id": 15,
+            "id": 1,
             "bitwidth": 64,
             "size": 2
         },
         {
             "name": "ts_recv_reg",
-            "id": 16,
+            "id": 2,
             "bitwidth": 64,
             "size": 2
         }
@@ -2475,63 +1107,7 @@
         ],
         [
             "intrinsic_metadata",
-            "prev_color_1"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_2"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_3"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_4"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_5"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_6"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_7"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_8"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_9"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_10"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_11"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_12"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_13"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_14"
-        ],
-        [
-            "intrinsic_metadata",
-            "prev_color_15"
+            "ts_flag"
         ],
         [
             "intrinsic_metadata",
