@@ -74,6 +74,7 @@ int main(){
         } 
     } 
     if( verbose ) { P("Coloring on '1' detected.") }
+
     /* Start to color on '0' --> reset the '0' coloring. */
     base[0] = counters[0];
     base[1] = counters[1];
@@ -107,7 +108,7 @@ int main(){
 						      (double)base[3] ) /
 					  	    ( (double)counters[2]-
 						      (double)base[2] )) * 100.0;
-            if (0 < loss){
+            if (0 <= loss){
     	        mytime = time(NULL);
      	        tm = *localtime(&mytime);
 	        printf("%02d:%02d:%02d --> ", tm.tm_hour, tm.tm_min, tm.tm_sec);
@@ -131,6 +132,7 @@ int main(){
             /* Only UP grow. */
             if( counters[2] > history[2] && counters[3] > history[3] ){s = DOWN;}
         } 
+
 	if( verbose ){printf("Color - '0'\n");
   	       printf("Sent '0' was of %u datagrams.\n", counters[0]-base[0]);
 	       printf("Received '0' was of %u datagrams.\n", counters[1]-base[1]); }
@@ -141,7 +143,7 @@ int main(){
 						      (double)base[1] ) /
 					  	    ( (double)counters[0]-
 						      (double)base[0] )) * 100.0;
-	    if (0 < loss){
+	    if (0 <= loss){
 
     	        mytime = time(NULL);
      	        tm = *localtime(&mytime);
@@ -301,7 +303,8 @@ void delta_ts_handler(unsigned long ts0, unsigned long ts1){
 	right1 = right1 >> 1;
     }
     long double tmp = whole1 - whole0 + fraction1 - fraction0; 
-    if( whole1 - whole0 >= 0 && tmp > 0 && tmp < 20 && tmp != histo ){  
+    if( whole1 - whole0 >= 0 && tmp > 0 && tmp < 20 && tmp != histo ){
+    /*if( tmp != histo ){  */
 	    /* printf("Cycle delay is: %Le seconds.\n", tmp); */
     	    mytime = time(NULL);
 	    tm = *localtime(&mytime);
