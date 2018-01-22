@@ -74,43 +74,48 @@ int main(){
         } 
     } 
     if( verbose ) { P("Coloring on '1' detected.") }
+
     /* Start to color on '0' --> reset the '0' coloring. */
     base[0] = counters[0];
     base[1] = counters[1];
 
-    /* Start a two simetric phase alternating function. Wait until the non-changing color 
-     * start to grow. Print the other color's counter and update history. Wait 
+    /* Part III: Start a two simetric phase alternating function. Wait until the
+     * non-changing color start to grow. Print the other color's counter and
+     * update history. Wait 
      * until the next color changes at repeat the process. */
 
-	while(iter < ITERATIONS){
+    while(iter < ITERATIONS){
     
         /*  Detect when we switch to color on '0'. */
         while(s == DOWN){
             RESET_REGISTERS
-            if(get_regiters("./../read_registers_line.sh", registers) == -1)
-                {P_ERR("get_counters (registers) function failed.")}
             sleep(1);
             HISTORY_COUNTERS
             RESET_COUNTERS
             if(get_counters("./../read_counters_line.sh", counters) == -1)
                 {P_ERR("get_counters function failed.")}
-  if( verbose )     {      PRINT_HISTORY }
+	    if( verbose ){ PRINT_HISTORY }
             /* Only UP grow. */
-            if( counters[0] > history[0] && counters[1] > history[1] ){
-                s = UP;
-            }
+            if( counters[0] > history[0] && counters[1] > history[1] ){s = UP;}
         } 
-	 if( verbose ){printf("Color - '1'\n");
+	if( verbose ){printf("Color - '1'\n");
   	       printf("Sent '1' was of %u datagrams.\n", counters[2]-base[2]);
   	       printf("Received '1' was of %u datagrams.\n", counters[3]-base[3]); }
 	if(counters[2] != 0){
-		double delay = (( (double)counters[2]-
+		double loss = (( (double)counters[2]-
     						      (double)base[2]-
                                 	              (double)counters[3]+
 						      (double)base[3] ) /
 					  	    ( (double)counters[2]-
 						      (double)base[2] )) * 100.0;
-		if (0 < delay){printf("Cycle packet loss: %lf%%\n", delay);}
+            if (0 <= loss){
+    	        mytime = time(NULL);
+     	        tm = *localtime(&mytime);
+	        printf("%02d:%02d:%02d --> ", tm.tm_hour, tm.tm_min, tm.tm_sec);
+		printf("Cycle packet loss: %lf%%\n", loss);}
+
+            if(get_regiters("./../read_registers_line.sh", registers) == -1)
+                {P_ERR("get_counters (registers) function failed.")}
 	}
         base[2] = counters[2];
         base[3] = counters[3];
@@ -118,34 +123,39 @@ int main(){
         /*  Detect when we switch to color on '1'. */
         while(s == UP){
             RESET_REGISTERS
-            if(get_regiters("./../read_registers_line.sh", registers) == -1)
-                {P_ERR("get_counters (registers) function failed.")}
             sleep(1);
             HISTORY_COUNTERS
             RESET_COUNTERS
             if(get_counters("./../read_counters_line.sh", counters) == -1)
                 {P_ERR("get_counters function failed.")}
-         if( verbose ) {   PRINT_HISTORY }
+            if( verbose ) {   PRINT_HISTORY }
             /* Only UP grow. */
-            if( counters[2] > history[2] && counters[3] > history[3] ){
-                s = DOWN;
-            }
+            if( counters[2] > history[2] && counters[3] > history[3] ){s = DOWN;}
         } 
-	 if( verbose ){printf("Color - '0'\n");
+
+	if( verbose ){printf("Color - '0'\n");
   	       printf("Sent '0' was of %u datagrams.\n", counters[0]-base[0]);
 	       printf("Received '0' was of %u datagrams.\n", counters[1]-base[1]); }
 	if(counters[0] != 0){
-		double delay = (( (double)counters[0]-
+		double loss = (( (double)counters[0]-
     						      (double)base[0]-
                                 	              (double)counters[1]+
 						      (double)base[1] ) /
 					  	    ( (double)counters[0]-
 						      (double)base[0] )) * 100.0;
-		if (0 < delay){printf("Cycle packet loss: %lf%%\n", delay);}
+	    if (0 <= loss){
+
+    	        mytime = time(NULL);
+     	        tm = *localtime(&mytime);
+	        printf("%02d:%02d:%02d --> ", tm.tm_hour, tm.tm_min, tm.tm_sec);
+                printf("Cycle packet loss: %lf%%\n", loss);}
+
+            if(get_regiters("./../read_registers_line.sh", registers) == -1)
+                {P_ERR("get_counters (registers) function failed.")}
 	}
         base[0] = counters[0];
         base[1] = counters[1];
-	}
+    }
 	free(registers);
 }
 
@@ -293,7 +303,8 @@ void delta_ts_handler(unsigned long ts0, unsigned long ts1){
 	right1 = right1 >> 1;
     }
     long double tmp = whole1 - whole0 + fraction1 - fraction0; 
-    if( whole1 - whole0 >= 0 && tmp < 20 && tmp != histo ){  
+    if( whole1 - whole0 >= 0 && tmp > 0 && tmp < 20 && tmp != histo ){
+    /*if( tmp != histo ){  */
 	    /* printf("Cycle delay is: %Le seconds.\n", tmp); */
     	    mytime = time(NULL);
 	    tm = *localtime(&mytime);

@@ -70,6 +70,7 @@ action _modify_ts_flag(val) {
 /* Read the color bit (flag_a) from the ipv4 header and count. */
 action _read_flags(val) {
     count(recv_counter,val);
+    modify_field(ipv4.flag_a, 0);
 }
 
 /* Read the ts bit (flag_b) from the ipv4 header.
@@ -78,6 +79,7 @@ action _read_flags(val) {
 action _detect_ts_flag_on(val) {
     count(ts_counter,val);
     register_write(ts_recv_reg, 0, intrinsic_metadata.time_of_day);
+    modify_field(ipv4.flag_b, 1);
 }
 
 table set_port {

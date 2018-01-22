@@ -90,6 +90,7 @@ action _read_flags(val) {
 action _look_for_flag(val) {
     count(ts_counter_recv, val);
     register_write(ts_recv_reg, 0, intrinsic_metadata.time_of_day);
+    modify_field(ipv4.flag_a, 0);
 }
 
 /* ------------- TABLES ----------------------------------------------------- */

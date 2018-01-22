@@ -395,62 +395,8 @@
     "meter_arrays": [],
     "actions": [
         {
-            "name": "_reset_ts_reg",
-            "id": 0,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 8
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "ts_flag_reg"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "_read_flags",
-            "id": 1,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 32
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "recv_counter"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "name": "_look_for_flag",
-            "id": 2,
+            "id": 0,
             "runtime_data": [
                 {
                     "name": "val",
@@ -490,12 +436,28 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ipv4",
+                                "flag_a"
+                            ]
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
                 }
             ]
         },
         {
             "name": "_drop",
-            "id": 3,
+            "id": 1,
             "runtime_data": [],
             "primitives": [
                 {
@@ -506,7 +468,7 @@
         },
         {
             "name": "_set_port",
-            "id": 4,
+            "id": 2,
             "runtime_data": [
                 {
                     "name": "dst",
@@ -534,7 +496,7 @@
         },
         {
             "name": "_modify_flags",
-            "id": 5,
+            "id": 3,
             "runtime_data": [
                 {
                     "name": "val",
@@ -595,7 +557,7 @@
         },
         {
             "name": "_note_flag",
-            "id": 6,
+            "id": 4,
             "runtime_data": [
                 {
                     "name": "val",
@@ -653,6 +615,60 @@
                                 "intrinsic_metadata",
                                 "time_of_day"
                             ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_reset_ts_reg",
+            "id": 5,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 8
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_flag_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_read_flags",
+            "id": 6,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "recv_counter"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
                         }
                     ]
                 }

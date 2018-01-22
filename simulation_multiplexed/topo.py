@@ -59,7 +59,7 @@ class MyTopo(Topo):
 
         for a, b in links:
 			if a == "s2" or a == "s3":
-				self.addLink(a, b, bw=5, loss=10, delay='2s') #ADDED LOSS PRECENTAGE + DELAY
+				self.addLink(a, b, bw=5, loss=10, delay='0.5s') #ADDED LOSS PRECENTAGE + DELAY
 #			if a == "s2" or a == "s3":
 #				self.addLink(a, b, bw=5, loss=5, delay='1s') #ADDED LOSS PRECENTAGE + DELAY
 #			if a == "s2" or a == "s3":

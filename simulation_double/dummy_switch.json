@@ -399,8 +399,97 @@
     "meter_arrays": [],
     "actions": [
         {
-            "name": "_detect_ts_flag_on",
+            "name": "_modify_ts_flag",
             "id": 0,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 1
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ipv4",
+                                "flag_b"
+                            ]
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "register_write",
+                    "parameters": [
+                        {
+                            "type": "register_array",
+                            "value": "ts_sent_reg"
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        },
+                        {
+                            "type": "field",
+                            "value": [
+                                "intrinsic_metadata",
+                                "time_of_day"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_read_flags",
+            "id": 1,
+            "runtime_data": [
+                {
+                    "name": "val",
+                    "bitwidth": 32
+                }
+            ],
+            "primitives": [
+                {
+                    "op": "count",
+                    "parameters": [
+                        {
+                            "type": "counter_array",
+                            "value": "recv_counter"
+                        },
+                        {
+                            "type": "runtime_data",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ipv4",
+                                "flag_a"
+                            ]
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x0"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "_detect_ts_flag_on",
+            "id": 2,
             "runtime_data": [
                 {
                     "name": "val",
@@ -440,12 +529,28 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "op": "modify_field",
+                    "parameters": [
+                        {
+                            "type": "field",
+                            "value": [
+                                "ipv4",
+                                "flag_b"
+                            ]
+                        },
+                        {
+                            "type": "hexstr",
+                            "value": "0x1"
+                        }
+                    ]
                 }
             ]
         },
         {
             "name": "_drop",
-            "id": 1,
+            "id": 3,
             "runtime_data": [],
             "primitives": [
                 {
@@ -456,7 +561,7 @@
         },
         {
             "name": "_set_port",
-            "id": 2,
+            "id": 4,
             "runtime_data": [
                 {
                     "name": "dst",
@@ -484,7 +589,7 @@
         },
         {
             "name": "_modify_flags",
-            "id": 3,
+            "id": 5,
             "runtime_data": [
                 {
                     "name": "val",
@@ -587,79 +692,6 @@
                         {
                             "type": "hexstr",
                             "value": "0x0"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "_modify_ts_flag",
-            "id": 4,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 1
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "modify_field",
-                    "parameters": [
-                        {
-                            "type": "field",
-                            "value": [
-                                "ipv4",
-                                "flag_b"
-                            ]
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "op": "register_write",
-                    "parameters": [
-                        {
-                            "type": "register_array",
-                            "value": "ts_sent_reg"
-                        },
-                        {
-                            "type": "hexstr",
-                            "value": "0x0"
-                        },
-                        {
-                            "type": "field",
-                            "value": [
-                                "intrinsic_metadata",
-                                "time_of_day"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "_read_flags",
-            "id": 5,
-            "runtime_data": [
-                {
-                    "name": "val",
-                    "bitwidth": 32
-                }
-            ],
-            "primitives": [
-                {
-                    "op": "count",
-                    "parameters": [
-                        {
-                            "type": "counter_array",
-                            "value": "recv_counter"
-                        },
-                        {
-                            "type": "runtime_data",
-                            "value": 0
                         }
                     ]
                 }
